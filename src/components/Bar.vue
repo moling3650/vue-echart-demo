@@ -1,12 +1,20 @@
 <template>
-  <div class="bar">
-    <div class="bar" ref="bar" style="width: 600px;height:400px;"></div>
-  </div>
+  <div class="bar" ref="bar" :style="{width, height}"></div>
 </template>
 
 <script>
   export default {
     name: 'bar',
+    props: {
+      width: {
+        type: [Number, String],
+        default: '100%'
+      },
+      height: {
+        type: [Number, String],
+        default: '200%'
+      }
+    },
     data () {
       return {
         myChart: null
@@ -21,9 +29,12 @@
         },
         tooltip: {},
         legend: {
-          data: ['数量'],
-          right: 0,
-          top: 'middle'
+          // data: ['数量'],
+          // right: 0,
+          // top: 'middle'
+        },
+        grid: {
+          right: 80
         },
         xAxis: {
           data: ['外观不良', '褶皱', '毛刺']

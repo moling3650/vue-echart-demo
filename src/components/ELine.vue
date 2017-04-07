@@ -1,10 +1,20 @@
 <template>
-  <div class="e-line" ref="e-line" style="width: 600px;height:200px;"></div>
+  <div class="e-line" ref="e-line" :style="{width, height}"></div>
 </template>
 
 <script>
   export default {
     name: 'ELine',
+    props: {
+      width: {
+        type: [Number, String],
+        default: '100%'
+      },
+      height: {
+        type: [Number, String],
+        default: '200%'
+      }
+    },
     data () {
       return {
         myChart: null
@@ -23,6 +33,9 @@
           data: ['不良数'],
           right: 0,
           top: 'middle'
+        },
+        grid: {
+          right: 80
         },
         xAxis: {
           data: [8, 9, 10, 11, 12, 13],

@@ -3,9 +3,12 @@
 import Vue from 'vue'
 import Echarts from 'echarts'
 import App from './App'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-default/index.css'
 
 Vue.config.productionTip = false
 Vue.prototype.echarts = Echarts
+Vue.use(ElementUI)
 
 /* eslint-disable no-new */
 new Vue({
