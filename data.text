@@ -1,0 +1,15 @@
+
+'http://localhost:6214/DataAPI/ProduceReport/productionDayReport.ashx?WorkShopCode=001&ActType=GetNPH'
+{"nphDateList":[{"nph":3707.995,"p_date":"2017-04-05 00:00:00","p_code":"INR26650-50A-01-FJJL"}],"drateDateList":null,"ngcodeDateList":null,"reasonDateList":null,"reasonTypeDateList":null}
+
+'http://localhost:6214/DataAPI/ProduceReport/productionDayReport.ashx?WorkShopCode=001&ActType=GetDrate'
+{"nphDateList":null,"drateDateList":[{"drate":0.0,"p_date":"2017-04-06 00:00:00","p_code":"IFR26650-32A-02-ZJJL"}],"ngcodeDateList":null,"reasonDateList":null,"reasonTypeDateList":null}
+
+'http://localhost:6214/DataAPI/ProduceReport/productionDayReport.ashx?WorkShopCode=001&ActType=GetNgCode&P_date=2017-04-07'
+{"nphDateList":null,"drateDateList":null,"ngcodeDateList":[{"qty":3.000,"ng_name":"接带","product_code":"IFR26650-32A-02-ZJJL"},{"qty":2.000,"ng_name":"划痕","product_code":"IFR26650-32A-02-ZJJL"},{"qty":1.000,"ng_name":"露箔","product_code":"IFR26650-32A-02-ZJJL"}],"reasonDateList":null,"reasonTypeDateList":null}
+
+'http://localhost:6214/DataAPI/ProduceReport/productionDayReport.ashx?WorkShopCode=001&ActType=GetReasonCode&P_date=2017-04-07'
+{"nphDateList":null,"drateDateList":null,"ngcodeDateList":null,"reasonDateList":[{"qty":2.000,"reason_name":"环境","product_code":"IFR26650-32A-02-ZJJL"},{"qty":1.000,"reason_name":"机器","product_code":"IFR26650-32A-02-ZJJL"},{"qty":1.000,"reason_name":"人员","product_code":"IFR26650-32A-02-ZJJL"}],"reasonTypeDateList":null}
+
+'http://localhost:6214/DataAPI/ProduceReport/productionDayReport.ashx?WorkShopCode=001&ActType=GetReasonCodeType&P_date=2017-04-07'
+{"nphDateList":null,"drateDateList":null,"ngcodeDateList":null,"reasonDateList":null,"reasonTypeDateList":[{"qty":2.000,"reasontype_name":"环境不良","product_code":"IFR26650-32A-02-ZJJL"},{"qty":1.000,"reasontype_name":"来料不良","product_code":"IFR26650-32A-02-ZJJL"},{"qty":1.000,"reasontype_name":"设备不良","product_code":"IFR26650-32A-02-ZJJL"}]}

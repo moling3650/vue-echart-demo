@@ -21,6 +21,10 @@ var autoOpenBrowser = !!config.dev.autoOpenBrowser
 var proxyTable = config.dev.proxyTable
 
 var app = express()
+app.get('/DataAPI/ProduceReport/productionDayReport.ashx', function (req, res) {
+  var act_type = req.query.ActType || 'GetWorkShop'
+  return res.json(require('../data/' + act_type + '.json'))
+})
 var compiler = webpack(webpackConfig)
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {

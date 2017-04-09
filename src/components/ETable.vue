@@ -56,7 +56,7 @@
 
 <style lang="css" scoped>
   /* Border styles */
-table {
+.table {
   font-family: arial;
   max-width: 100%;
   background-color: transparent;
