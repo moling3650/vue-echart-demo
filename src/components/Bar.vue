@@ -13,6 +13,14 @@
       height: {
         type: [Number, String],
         default: '200%'
+      },
+      title: {
+        type: String,
+        default: '标题'
+      },
+      api: {
+        type: String,
+        required: true
       }
     },
     data () {
@@ -21,44 +29,63 @@
       }
     },
     mounted () {
-      this.myChart = this.echarts.init(this.$refs.bar)
-      let option = {
-        title: {
-          text: '不良现象分布',
-          left: 'center'
-        },
-        tooltip: {},
-        legend: {
-          // data: ['数量'],
-          // right: 0,
-          // top: 'middle'
-        },
-        grid: {
-          right: 80
-        },
-        xAxis: {
-          data: ['外观不良', '褶皱', '毛刺']
-        },
-        yAxis: {
-        },
-        color: ['#418ebd'],
-        series: [{
-          name: '数量',
-          type: 'bar',
-          data: [2, 2, 5],
-          barMaxWidth: 50,
-          label: {
-            normal: {
-              show: true,
-              position: 'top',
-              textStyle: {
-                fontSize: 16
+      this.init()
+      this.fetchData()
+    },
+    methods: {
+      init () {
+        this.myChart = this.echarts.init(this.$refs.bar)
+        let option = {
+          title: {
+            text: this.title,
+            left: 'center'
+          },
+          tooltip: {},
+          grid: {
+            right: 80
+          },
+          xAxis: {
+            data: []
+          },
+          yAxis: {
+          },
+          color: ['#418ebd'],
+          series: [{
+            name: '数量',
+            type: 'bar',
+            data: [],
+            barMaxWidth: 50,
+            label: {
+              normal: {
+                show: true,
+                position: 'top',
+                textStyle: {
+                  fontSize: 16
+                }
               }
             }
+          }]
+        }
+        this.myChart.setOption(option)
+      },
+      fetchData () {
+        this.$http.get(`/DataAPI/ProduceReport/productionDayReport.ashx?WorkShopCode=001&ActType=${this.api}&P_date=2017-04-07`).then(res => {
+          var dataList = []
+          if (this.api === 'GetNgCode') {
+            dataList = res.data.ngcodeDateList
+          } else if (this.api === 'GetReasonCode') {
+            dataList = res.data.reasonDateList
           }
-        }]
+          this.myChart.setOption({
+            xAxis: {
+              data: dataList.map(item => this.api === 'GetNgCode' ? item.ng_name : item.reason_name)
+            },
+            series: [{
+              data: dataList.map(item => item.qty)
+            }]
+          })
+        })
       }
-      this.myChart.setOption(option)
     }
   }
 </script>

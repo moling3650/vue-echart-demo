@@ -1,1 +1,12 @@
-{"nphDateList":null,"drateDateList":[{"drate":0.0,"p_date":"2017-04-06 00:00:00","p_code":"IFR26650-32A-02-ZJJL"}],"ngcodeDateList":null,"reasonDateList":null,"reasonTypeDateList":null}
+{
+  "nphDateList":null,
+  "drateDateList":[
+    {"drate":0.0,"p_date":"2017-04-06 00:00:00","p_code":"IFR26650-32A-02-ZJJL"},
+    {"drate":2.0,"p_date":"2017-04-07 00:00:00","p_code":"IFR26650-32A-02-ZJJL"},
+    {"drate":1.0,"p_date":"2017-04-08 00:00:00","p_code":"IFR26650-32A-02-ZJJL"},
+    {"drate":3.0,"p_date":"2017-04-09 00:00:00","p_code":"IFR26650-32A-02-ZJJL"}
+  ],
+  "ngcodeDateList":null,
+  "reasonDateList":null,
+  "reasonTypeDateList":null
+}

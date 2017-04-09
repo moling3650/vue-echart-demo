@@ -5,12 +5,12 @@
       <e-table></e-table>
     </div>
     <div>
-      <e-line width="50%" height="200px"></e-line>
-      <e-line width="50%" height="200px"></e-line>
+      <e-line width="50%" height="200px" title="车间NPH推移" api="GetNPH"></e-line>
+      <e-line width="50%" height="200px" title="车间不良推移" api="GetDrate"></e-line>
     </div>
     <div>
-      <bar width="40%" height="200px"></bar>
-      <bar width="40%" height="200px"></bar>
+      <bar width="40%" height="200px" title="不良现象分布" api="GetNgCode"></bar>
+      <bar width="40%" height="200px" title="不良原因分布" api="GetReasonCode"></bar>
       <e-pie width="20%" height="200px"></e-pie>
     </div>
   </div>
