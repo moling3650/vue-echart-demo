@@ -13,6 +13,10 @@
       height: {
         type: [Number, String],
         default: '200%'
+      },
+      wsCode: {
+        type: String,
+        required: true
       }
     },
     data () {
@@ -26,7 +30,7 @@
       let option = {
         legend: {
           orient: 'vertical',
-          data: ['计划完成', '已经达成', '在制'],
+          data: ['计划', '投产', '完成'],
           right: 0,
           top: 'middle'
         },
@@ -44,17 +48,17 @@
         },
         color: ['#418ebd', '#44c57e', '#ffff68'],
         series: [{
-          name: '计划完成',
+          name: '计划',
           type: 'bar',
           barMaxWidth: 20,
           data: [1000, 1100]
         }, {
-          name: '已经达成',
+          name: '投产',
           type: 'bar',
           barMaxWidth: 20,
           data: [900, 800]
         }, {
-          name: '在制',
+          name: '完成',
           type: 'bar',
           barMaxWidth: 20,
           data: [100, 40]

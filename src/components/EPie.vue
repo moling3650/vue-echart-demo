@@ -13,6 +13,18 @@
       height: {
         type: [Number, String],
         default: '200%'
+      },
+      api: {
+        type: String,
+        required: true
+      },
+      wsCode: {
+        type: String,
+        required: true
+      },
+      date: {
+        type: String,
+        required: true
       }
     },
     data () {
@@ -22,7 +34,15 @@
     },
     mounted () {
       this.init()
-      this.fetchDate()
+      // this.fetchDate()
+    },
+    watch: {
+      wsCode: function (value, oldValue) {
+        value && this.fetchData()
+      },
+      date: function (value, oldValue) {
+        value && this.fetchData()
+      }
     },
     methods: {
       init () {
@@ -61,8 +81,8 @@
         }
         this.myChart.setOption(option)
       },
-      fetchDate () {
-        this.$http.get('/DataAPI/ProduceReport/productionDayReport.ashx?WorkShopCode=001&ActType=GetReasonCodeType').then(res => {
+      fetchData () {
+        this.$http.get(`/DataAPI/ProduceReport/productionDayReport.ashx?WorkShopCode=${this.wsCode}&ActType=${this.api}&P_date={this.date}`).then(res => {
           let dataList = res.data.reasonTypeDateList
           this.myChart.setOption({
             legend: {

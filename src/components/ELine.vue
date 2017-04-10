@@ -21,6 +21,14 @@
       api: {
         type: String,
         required: true
+      },
+      wsCode: {
+        type: String,
+        required: true
+      },
+      date: {
+        type: String,
+        required: true
       }
     },
     data () {
@@ -30,7 +38,14 @@
     },
     mounted () {
       this.init()
-      this.fetchData()
+    },
+    watch: {
+      wsCode: function (value, oldValue) {
+        value && this.fetchData()
+      },
+      date: function (value, oldValue) {
+        value && this.fetchData()
+      }
     },
     methods: {
       init () {
@@ -70,7 +85,7 @@
         this.myChart.setOption(option)
       },
       fetchData () {
-        this.$http.get(`/DataAPI/ProduceReport/productionDayReport.ashx?WorkShopCode=001&ActType=${this.api}&P_date=2017-04-07`).then(res => {
+        this.$http.get(`/DataAPI/ProduceReport/productionDayReport.ashx?WorkShopCode=${this.wsCode}&ActType=${this.api}&P_date={this.date}`).then(res => {
           var dataList = []
           if (this.api === 'GetNPH') {
             dataList = res.data.nphDateList
