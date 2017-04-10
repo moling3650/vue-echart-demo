@@ -25,6 +25,11 @@ app.get('/DataAPI/ProduceReport/productionDayReport.ashx', function (req, res) {
   var act_type = req.query.ActType || 'GetWorkShop'
   return res.json(require('../data/' + act_type + '.json'))
 })
+
+app.get('/DataAPI/Commom.ashx', function (req, res) {
+  return res.json(require('../data/GetWorkShop.json'))
+})
+
 var compiler = webpack(webpackConfig)
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {

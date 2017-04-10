@@ -1,5 +1,29 @@
 <template>
   <div id="app">
+    <header>
+      <h1 class="title">车间日生产看板</h1>
+      <nav>
+        <ul class="nav">
+          <li class="nav-item">
+            <el-select v-model="workShopCode" placeholder="请选择车间">
+              <el-option
+                v-for="item in workShopOpts"
+                :label="item.WorkShopName"
+                :value="item.WorkShopCode"
+                :key="item.WorkShopCode">
+              </el-option>
+            </el-select>
+          </li>
+          <li class="nav-item">
+            <el-date-picker
+              v-model="pDate"
+              type="date"
+              :picker-options="pickerOptions">
+            </el-date-picker>
+          </li>
+        </ul>
+      </nav>
+    </header><!-- /header -->
     <div>
       <e-bar width="50%" height="200px"></e-bar>
       <e-table></e-table>
@@ -31,6 +55,28 @@ export default {
     ELine,
     EPie,
     EBar
+  },
+  data () {
+    return {
+      workShopCode: '',
+      workShopOpts: [],
+      pDate: new Date(),
+      pickerOptions: {
+        disabledDate (time) {
+          return Date.now() < time.getTime()
+        }
+      }
+    }
+  },
+  created () {
+    this.$http.get('/DataAPI/Commom.ashx').then(res => {
+      this.workShopOpts = res.data
+      if (this.workShopOpts.length) {
+        this.workShopCode = this.workShopOpts[0].WorkShopCode
+      }
+    }).catch(err => {
+      console.log(err)
+    })
   }
 }
 </script>
@@ -40,13 +86,31 @@ export default {
     font-size: 0;
   }
 
+  .title {
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .nav {
+    margin-bottom: 10px;
+    text-align: right;
+  }
+
+  .nav-item {
+    display: inline-block;
+    width: 20%;
+    /* border: 1px solid #000; */
+    font-size: 16px;
+    text-align: center;
+  }
+
   .e-bar {
     display: inline-block;
   }
 
   .e-table {
-    float: right;
     display: inline-block;
+    width: 50%;
     vertical-align: top;
   }
 

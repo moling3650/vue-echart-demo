@@ -56,7 +56,7 @@
 
 <style lang="css" scoped>
   /* Border styles */
-.table {
+table {
   font-family: arial;
   max-width: 100%;
   background-color: transparent;
@@ -67,7 +67,7 @@
 .table {
   width: 100%;
   margin-bottom: 20px;
-  border: 1px solid #dddddd;
+  border: 1px solid #aaa;
 }
 
 .table th,
@@ -78,21 +78,22 @@
   line-height: 20px;
   text-align: left;
   vertical-align: middle;
-  border-top: 1px solid #dddddd;
+  border-top: 1px solid #aaa;
 }
 
 .table th:not(:last-child),
 .table td:not(:last-child) {
-  border-right: 1px solid  #ddd;
+  border-right: 1px solid  #aaa;
 }
 
 .table thead th {
-  background: #eeeeee;
+  font-weight: bold;
+  background: #bfdbff;
   vertical-align: bottom;
 }
-.table tbody > tr:nth-child(odd) > td,
-.table tbody > tr:nth-child(odd) > th {
-  background-color: #fafafa;
+.table tbody > tr:nth-child(even) > td,
+.table tbody > tr:nth-child(even) > th {
+  background-color: #f9f9f9;
 }
 .table .t-small {
   width: 5%;
@@ -115,4 +116,33 @@
 .table .t-scheduled {
   color: #049cdb;
 }
+
+.table th:nth-child(1), .table td:nth-child(1) {
+  width: 20%;
+}
+
+.table th:nth-child(2), .table td:nth-child(2) {
+  width: 20%;
+}
+
+.table th:nth-child(3), .table td:nth-child(3) {
+  width: 15%;
+  text-align: center;
+}
+
+.table th:nth-child(4), .table td:nth-child(4) {
+  width: 15%;
+  text-align: center;
+}
+
+.table th:nth-child(5), .table td:nth-child(5) {
+  width: 15%;
+  text-align: center;
+}
+
+.table th:nth-child(6), .table td:nth-child(6) {
+  width: 15%;
+  text-align: center;
+}
+
 </style>
