@@ -84,7 +84,7 @@
         this.myChart.setOption(option)
       },
       fetchData () {
-        this.$http.get(`/DataAPI/ProduceReport/productionDayReport.ashx?WorkShopCode=${this.wsCode}&ActType=${this.api}&P_date={this.date}`).then(res => {
+        this.$http.get(`/DataAPI/ProduceReport/productionDayReport.ashx?WorkShopCode=${this.wsCode}&ActType=${this.api}&P_date=${this.date}`).then(res => {
           var dataList = []
           if (this.api === 'GetNgCode') {
             dataList = res.data.ngcodeDateList

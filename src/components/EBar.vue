@@ -31,7 +31,7 @@
         legend: {
           orient: 'vertical',
           data: ['计划', '投产', '完成'],
-          right: 0,
+          right: 20,
           top: 'middle'
         },
         grid: {
@@ -51,17 +51,17 @@
           name: '计划',
           type: 'bar',
           barMaxWidth: 20,
-          data: [1000, 1100]
+          data: [1000, 1000]
         }, {
           name: '投产',
           type: 'bar',
           barMaxWidth: 20,
-          data: [900, 800]
+          data: [990, 970]
         }, {
           name: '完成',
           type: 'bar',
           barMaxWidth: 20,
-          data: [100, 40]
+          data: [800, 760]
         }]
       }
       this.myChart.setOption(option)

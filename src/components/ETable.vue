@@ -14,34 +14,19 @@
       <tbody>
         <tr>
           <td>A001</td>
-          <td>正极极片</td>
-          <td>10000</td>
-          <td>8000</td>
-          <td>80%</td>
-          <td>99%</td>
-        </tr>
-        <tr>
-          <td>A001</td>
           <td>负极极片</td>
           <td>10000</td>
           <td>7600</td>
           <td>76%</td>
           <td>97%</td>
-        </tr>        <tr>
+        </tr>
+        <tr>
           <td>A001</td>
           <td>正极极片</td>
           <td>10000</td>
           <td>8000</td>
           <td>80%</td>
           <td>99%</td>
-        </tr>
-        <tr>
-          <td>A001</td>
-          <td>负极极片</td>
-          <td>10000</td>
-          <td>7600</td>
-          <td>76%</td>
-          <td>97%</td>
         </tr>
       </tbody>
     </table>
@@ -56,93 +41,73 @@
 
 <style lang="css" scoped>
   /* Border styles */
-table {
-  font-family: arial;
-  max-width: 100%;
-  background-color: transparent;
-  border-collapse: collapse;
-  border-spacing: 0;
-}
+  table {
+    font-family: arial;
+    max-width: 100%;
+    background-color: transparent;
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
 
-.table {
-  width: 100%;
-  margin-bottom: 20px;
-  border: 1px solid #aaa;
-}
+  .table {
+    width: 100%;
+    margin-bottom: 20px;
+    border: 1px solid #aaa;
+  }
 
-.table th,
-.table td {
-  font-weight: normal;
-  font-size: 12px;
-  padding: 5px 15px;
-  line-height: 20px;
-  text-align: left;
-  vertical-align: middle;
-  border-top: 1px solid #aaa;
-}
+  .table th,
+  .table td {
+    font-weight: normal;
+    font-size: 12px;
+    padding: 5px 15px;
+    line-height: 20px;
+    text-align: left;
+    vertical-align: middle;
+    border-top: 1px solid #aaa;
+  }
 
-.table th:not(:last-child),
-.table td:not(:last-child) {
-  border-right: 1px solid  #aaa;
-}
+  .table th:not(:last-child),
+  .table td:not(:last-child) {
+    border-right: 1px solid  #aaa;
+  }
 
-.table thead th {
-  font-weight: bold;
-  background: #bfdbff;
-  vertical-align: bottom;
-}
-.table tbody > tr:nth-child(even) > td,
-.table tbody > tr:nth-child(even) > th {
-  background-color: #f9f9f9;
-}
-.table .t-small {
-  width: 5%;
-}
-.table .t-medium {
-  width: 15%;
-}
-.table .t-status {
-  font-weight: bold;
-}
-.table .t-active {
-  color: #46a546;
-}
-.table .t-inactive {
-  color: #e00300;
-}
-.table .t-draft {
-  color: #f89406;
-}
-.table .t-scheduled {
-  color: #049cdb;
-}
+  .table thead th {
+    font-weight: bold;
+    background: #bfdbff;
+    vertical-align: bottom;
+  }
+  .table tbody > tr:nth-child(even) > td,
+  .table tbody > tr:nth-child(even) > th {
+    background-color: #f9f9f9;
+  }
+  .table .t-small {
+    width: 5%;
+  }
+  .table .t-medium {
+    width: 15%;
+  }
+  .table .t-status {
+    font-weight: bold;
+  }
+  .table .t-active {
+    color: #46a546;
+  }
+  .table .t-inactive {
+    color: #e00300;
+  }
+  .table .t-draft {
+    color: #f89406;
+  }
+  .table .t-scheduled {
+    color: #049cdb;
+  }
 
-.table th:nth-child(1), .table td:nth-child(1) {
-  width: 20%;
-}
+  .table th:nth-child(n), .table td:nth-child(n) {
+    width: 20%;
+  }
 
-.table th:nth-child(2), .table td:nth-child(2) {
-  width: 20%;
-}
-
-.table th:nth-child(3), .table td:nth-child(3) {
-  width: 15%;
-  text-align: center;
-}
-
-.table th:nth-child(4), .table td:nth-child(4) {
-  width: 15%;
-  text-align: center;
-}
-
-.table th:nth-child(5), .table td:nth-child(5) {
-  width: 15%;
-  text-align: center;
-}
-
-.table th:nth-child(6), .table td:nth-child(6) {
-  width: 15%;
-  text-align: center;
-}
-
+  .table th:nth-child(n+3), .table td:nth-child(n+3) {
+    width: 15%;
+    text-align: center;
+  }
 </style>

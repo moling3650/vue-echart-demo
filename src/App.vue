@@ -28,14 +28,14 @@
       <e-bar width="50%" height="200px" :wsCode="workShopCode"></e-bar>
       <e-table></e-table>
     </div>
-    <div>
-      <e-line width="50%" height="200px" title="车间NPH推移" api="GetNPH" :wsCode="workShopCode" :date="formatDate"></e-line>
-      <e-line width="50%" height="200px" title="车间不良推移" api="GetDrate" :wsCode="workShopCode" :date="formatDate"></e-line>
+    <div style="height: 150px;">
+      <e-line width="50%" height="100%" title="车间NPH推移" api="GetNPH" :wsCode="workShopCode" :date="formatDate"></e-line>
+      <e-line width="50%" height="100%" title="车间不良推移" api="GetDrate" :wsCode="workShopCode" :date="formatDate"></e-line>
     </div>
-    <div>
-      <bar width="40%" height="200px" title="不良现象分布" api="GetNgCode" :wsCode="workShopCode" :date="formatDate"></bar>
-      <bar width="40%" height="200px" title="不良原因分布" api="GetReasonCode" :wsCode="workShopCode" :date="formatDate"></bar>
-      <e-pie width="20%" height="200px" api="GetReasonCodeType" :wsCode="workShopCode" :date="formatDate"></e-pie>
+    <div style="height: 200px;">
+      <bar width="40%" height="100%" title="不良现象分布" api="GetNgCode" :wsCode="workShopCode" :date="formatDate"></bar>
+      <bar width="40%" height="100%" title="不良原因分布" api="GetReasonCode" :wsCode="workShopCode" :date="formatDate"></bar>
+      <e-pie width="20%" height="100%" api="GetReasonCodeType" :wsCode="workShopCode" :date="formatDate"></e-pie>
     </div>
   </div>
 </template>
@@ -134,4 +134,10 @@ export default {
   .e-pie {
     display: inline-block;
   }
+
+/*   @media only screen and (min-width: 768px) {
+    .e-line {
+      display: inline-block;
+    }
+  } */
 </style>
