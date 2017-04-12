@@ -1,32 +1,24 @@
 <template>
-  <div class="e-table">
+  <div class="e-table" ref="e-table">
     <table class="table">
       <thead>
         <tr>
-          <th>工单</th>
-          <th>成品</th>
-          <th>计划</th>
-          <th>达成</th>
-          <th>达成率</th>
-          <th>直通率</th>
+          <!-- <th>工单</th> -->
+          <th :style="{paddingTop: pd, paddingBottom: pd}">成品</th>
+          <th :style="{paddingTop: pd, paddingBottom: pd}">计划</th>
+          <th :style="{paddingTop: pd, paddingBottom: pd}">达成</th>
+          <th :style="{paddingTop: pd, paddingBottom: pd}">达成率</th>
+          <th :style="{paddingTop: pd, paddingBottom: pd}">直通率</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>A001</td>
-          <td>负极极片</td>
-          <td>10000</td>
-          <td>7600</td>
-          <td>76%</td>
-          <td>97%</td>
-        </tr>
-        <tr>
-          <td>A001</td>
-          <td>正极极片</td>
-          <td>10000</td>
-          <td>8000</td>
-          <td>80%</td>
-          <td>99%</td>
+        <tr v-for="(item, idx) in dataList" :key="idx">
+          <!-- <td>{{item.Order_no}}</td> -->
+          <td :style="{paddingTop: pd, paddingBottom: pd}">{{item.P_name}}</td>
+          <td :style="{paddingTop: pd, paddingBottom: pd}">{{item.PlanQty}}</td>
+          <td :style="{paddingTop: pd, paddingBottom: pd}">{{item.ComPleteQty}}</td>
+          <td :style="{paddingTop: pd, paddingBottom: pd}">{{item.CompleteRate}}%</td>
+          <td :style="{paddingTop: pd, paddingBottom: pd}">{{item.FPYRate}}%</td>
         </tr>
       </tbody>
     </table>
@@ -35,7 +27,64 @@
 
 <script>
   export default {
-    name: 'ETable'
+    name: 'ETable',
+    props: {
+      height: {
+        type: Number,
+        required: true
+      },
+      wsCode: {
+        type: String,
+        required: true
+      },
+      date: {
+        type: String,
+        required: true
+      },
+      interval: {
+        type: Number,
+        default: 0
+      }
+    },
+    watch: {
+      wsCode: function (value, oldValue) {
+        value && this.fetchData()
+      },
+      date: function (value, oldValue) {
+        value && this.fetchData()
+      }
+    },
+    data () {
+      return {
+        dataList: [],
+        timer: null
+      }
+    },
+    computed: {
+      pd () {  // 单元格的上下补白，采用自动计算方案
+        if (!this.dataList.length) {
+          return '5px'
+        }
+        let restHeight = this.height - 21 * (2 + this.dataList.length)
+        return parseInt(restHeight / (this.dataList.length + 1) / 2) + 'px'
+      }
+    },
+    methods: {
+      fetchData () {
+        this.$http.get(`/DataAPI/ProduceReport/productionDayReport.ashx?WorkShopCode=${this.wsCode}&ActType=GetItemDataT&P_date=${this.date}`).then(res => {
+          this.dataList = res.data.map(item => item.dataT)
+          if (this.interval) {
+            clearInterval(this.timer)
+            this.timer = setTimeout(this.fetchData, this.interval)
+          }
+        }).catch(err => {
+          console.log(err)
+        })
+      }
+    },
+    mounted () {
+      this.fetchData()
+    }
   }
 </script>
 
@@ -103,10 +152,10 @@
   }
 
   .table th:nth-child(n), .table td:nth-child(n) {
-    width: 20%;
+    width: 40%;
   }
 
-  .table th:nth-child(n+3), .table td:nth-child(n+3) {
+  .table th:nth-child(n+2), .table td:nth-child(n+2) {
     width: 15%;
     text-align: center;
   }

@@ -29,11 +29,16 @@
       date: {
         type: String,
         required: true
+      },
+      interval: {
+        type: Number,
+        default: 0
       }
     },
     data () {
       return {
-        myChart: null
+        myChart: null,
+        timer: null
       }
     },
     mounted () {
@@ -57,6 +62,7 @@
           },
           tooltip: {},
           grid: {
+            top: 40,
             right: 80
           },
           xAxis: {
@@ -99,6 +105,10 @@
               data: dataList.map(item => item.qty)
             }]
           })
+          if (this.interval) {
+            clearInterval(this.timer)
+            this.timer = setTimeout(this.fetchData, this.interval)
+          }
         })
       }
     }

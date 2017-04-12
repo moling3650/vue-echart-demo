@@ -29,11 +29,17 @@
       date: {
         type: String,
         required: true
+      },
+      interval: {
+        type: Number,
+        default: 0
       }
     },
     data () {
       return {
-        myChart: null
+        myChart: null,
+        timer: null,
+        dates: []
       }
     },
     mounted () {
@@ -57,13 +63,14 @@
           },
           tooltip: {},
           legend: {
-            data: [this.api.slice(3)],
+            orient: 'vertical',
+            data: [],
             right: 0,
             top: 'middle'
           },
           grid: {
             top: 35,
-            right: 80
+            right: 130
           },
           xAxis: {
             data: [],
@@ -76,11 +83,9 @@
           },
           yAxis: {
           },
-          color: ['#418ebd'],
+          color: ['#61a0a8', '#2f4554', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3'],
           series: [{
-            name: this.api.slice(3),
-            type: 'line',
-            data: []
+            type: 'line'
           }]
         }
         this.myChart.setOption(option)
@@ -93,13 +98,33 @@
           } else if (this.api === 'GetDrate') {
             dataList = res.data.drateDateList
           }
+          // console.log(Array.from(new Set(dataList.map(item => item.p_date))).sort())
+          this.dates = Array.from(new Set(dataList.map(item => item.p_date))).sort()
+
+          let dataObj = {}
+          dataList.map(item => {
+            if (!dataObj[item.p_name]) {
+              dataObj[item.p_name] = []
+            }
+            let idx = this.dates.findIndex(date => date === item.p_date)
+            dataObj[item.p_name][idx] = item
+          })
+          dataList = []
+          for (let key in dataObj) {
+            dataList.push({
+              name: key,
+              type: 'line',
+              data: dataObj[key].map(item => this.api === 'GetNPH' ? item.nph : item.drate)
+            })
+          }
           this.myChart.setOption({
-            xAxis: {
-              data: dataList.map(item => item.p_date)
+            legend: {
+              data: dataList.map(item => item.name)
             },
-            series: [{
-              data: dataList.map(item => this.api === 'GetNPH' ? item.nph : item.drate)
-            }]
+            xAxis: {
+              data: this.dates.map(date => new Date(date))
+            },
+            series: dataList
           })
         })
       }

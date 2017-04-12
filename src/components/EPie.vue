@@ -25,11 +25,16 @@
       date: {
         type: String,
         required: true
+      },
+      interval: {
+        type: Number,
+        default: 0
       }
     },
     data () {
       return {
-        myChart: null
+        myChart: null,
+        timer: null
       }
     },
     mounted () {
@@ -59,7 +64,7 @@
             right: '10%',
             top: 'middle'
           },
-          color: ['#418ebd', '#44c57e', '#ffff68'],
+          color: ['#418ebd', '#44c57e', '#eeee68'],
           series: [{
             name: '不良数量',
             type: 'pie',
@@ -92,6 +97,10 @@
               data: dataList.map(item => ({ name: item.reasontype_name, value: item.qty }))
             }]
           })
+          if (this.interval) {
+            clearInterval(this.timer)
+            this.timer = setTimeout(this.fetchData, this.interval)
+          }
         })
       }
     }

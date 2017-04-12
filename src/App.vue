@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <header>
+    <header style="height: 64px;">
       <h1 class="title">车间日生产看板</h1>
       <nav class="nav">
         <ul>
@@ -24,18 +24,18 @@
         </ul>
       </nav>
     </header><!-- /header -->
-    <div>
-      <e-bar width="50%" height="200px" :wsCode="workShopCode"></e-bar>
-      <e-table></e-table>
+    <div v-if="firstBlockHeight">
+      <e-bar width="50%" :height="firstBlockHeight + 'px'" :wsCode="workShopCode" :date="formatDate" :interval="interval"></e-bar>
+      <e-table :height="firstBlockHeight" :wsCode="workShopCode" :date="formatDate" :interval="interval"></e-table>
     </div>
-    <div style="height: 150px;">
-      <e-line width="50%" height="100%" title="车间NPH推移" api="GetNPH" :wsCode="workShopCode" :date="formatDate"></e-line>
-      <e-line width="50%" height="100%" title="车间不良推移" api="GetDrate" :wsCode="workShopCode" :date="formatDate"></e-line>
+    <div v-if="restBlockHeight">
+      <e-line width="50%" :height="restBlockHeight + 'px'" title="车间NPH推移" api="GetNPH" :wsCode="workShopCode" :date="formatDate" :interval="interval"></e-line>
+      <e-line width="50%" :height="restBlockHeight + 'px'" title="车间不良推移" api="GetDrate" :wsCode="workShopCode" :date="formatDate" :interval="interval"></e-line>
     </div>
-    <div style="height: 200px;">
-      <bar width="40%" height="100%" title="不良现象分布" api="GetNgCode" :wsCode="workShopCode" :date="formatDate"></bar>
-      <bar width="40%" height="100%" title="不良原因分布" api="GetReasonCode" :wsCode="workShopCode" :date="formatDate"></bar>
-      <e-pie width="20%" height="100%" api="GetReasonCodeType" :wsCode="workShopCode" :date="formatDate"></e-pie>
+    <div v-if="restBlockHeight">
+      <bar width="40%" :height="restBlockHeight + 'px'" title="不良现象分布" api="GetNgCode" :wsCode="workShopCode" :date="formatDate" :interval="interval"></bar>
+      <bar width="40%" :height="restBlockHeight + 'px'" title="不良原因分布" api="GetReasonCode" :wsCode="workShopCode" :date="formatDate" :interval="interval"></bar>
+      <e-pie width="20%" :height="restBlockHeight + 'px'" api="GetReasonCodeType" :wsCode="workShopCode" :date="formatDate" :interval="interval"></e-pie>
     </div>
   </div>
 </template>
@@ -65,7 +65,10 @@ export default {
         disabledDate (time) {
           return Date.now() < time.getTime()
         }
-      }
+      },
+      firstBlockHeight: 0,
+      restBlockHeight: 0,
+      interval: 600000
     }
   },
   computed: {
@@ -74,6 +77,8 @@ export default {
     }
   },
   created () {
+    this.firstBlockHeight = parseInt((document.documentElement.clientHeight - 80) * 0.4)
+    this.restBlockHeight = parseInt((document.documentElement.clientHeight - 80) * 0.3)
     this.$http.get('/DataAPI/Commom.ashx').then(res => {
       this.workShopOpts = res.data
       if (this.workShopOpts.length) {
