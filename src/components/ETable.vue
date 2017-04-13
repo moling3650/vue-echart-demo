@@ -3,7 +3,7 @@
     <table class="table">
       <thead>
         <tr>
-          <!-- <th>工单</th> -->
+          <th :style="{paddingTop: pd, paddingBottom: pd}">工单</th>
           <th :style="{paddingTop: pd, paddingBottom: pd}">成品</th>
           <th :style="{paddingTop: pd, paddingBottom: pd}">计划</th>
           <th :style="{paddingTop: pd, paddingBottom: pd}">达成</th>
@@ -13,7 +13,7 @@
       </thead>
       <tbody>
         <tr v-for="(item, idx) in dataList" :key="idx">
-          <!-- <td>{{item.Order_no}}</td> -->
+          <td :style="{paddingTop: pd, paddingBottom: pd}">{{item.Order_no}}</td>
           <td :style="{paddingTop: pd, paddingBottom: pd}">{{item.P_name}}</td>
           <td :style="{paddingTop: pd, paddingBottom: pd}">{{item.PlanQty}}</td>
           <td :style="{paddingTop: pd, paddingBottom: pd}">{{item.ComPleteQty}}</td>
@@ -74,7 +74,7 @@
         this.$http.get(`/DataAPI/ProduceReport/productionDayReport.ashx?WorkShopCode=${this.wsCode}&ActType=GetItemDataT&P_date=${this.date}`).then(res => {
           this.dataList = res.data.map(item => item.dataT)
           if (this.interval) {
-            clearInterval(this.timer)
+            clearTimeout(this.timer)
             this.timer = setTimeout(this.fetchData, this.interval)
           }
         }).catch(err => {
@@ -152,11 +152,11 @@
   }
 
   .table th:nth-child(n), .table td:nth-child(n) {
-    width: 40%;
+    width: 25%;
   }
 
-  .table th:nth-child(n+2), .table td:nth-child(n+2) {
-    width: 15%;
+  .table th:nth-child(n+3), .table td:nth-child(n+3) {
+    width: 12.5%;
     text-align: center;
   }
 </style>

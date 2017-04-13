@@ -39,7 +39,31 @@
       return {
         myChart: null,
         timer: null,
-        dates: []
+        dates: [],
+        option: {
+          title: {
+            text: this.title,
+            left: 'center'
+          },
+          tooltip: {},
+          legend: {
+            orient: 'vertical',
+            right: 0,
+            top: 'middle'
+          },
+          grid: {
+            top: 35,
+            right: 130,
+            bottom: 10,
+            left: 10,
+            containLabel: true
+          },
+          xAxis: {
+          },
+          yAxis: {
+          },
+          color: ['#61a0a8', '#2f4554', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3']
+        }
       }
     },
     mounted () {
@@ -56,48 +80,20 @@
     methods: {
       init () {
         this.myChart = this.echarts.init(this.$refs['e-line'])
-        let option = {
-          title: {
-            text: this.title,
-            left: 'center'
-          },
-          tooltip: {},
-          legend: {
-            orient: 'vertical',
-            data: [],
-            right: 0,
-            top: 'middle'
-          },
-          grid: {
-            top: 35,
-            right: 130
-          },
-          xAxis: {
-            data: [],
-            axisLabel: {
-              formatter (value, index) {
-                var date = new Date(value)
-                return `${date.getMonth() + 1}月${date.getDate()}日`
-              }
-            }
-          },
-          yAxis: {
-          },
-          color: ['#61a0a8', '#2f4554', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3'],
-          series: [{
-            type: 'line'
-          }]
-        }
-        this.myChart.setOption(option)
+      },
+      dateFormatter (value) {
+        let date = new Date(value)
+        return `${date.getMonth() + 1}月${date.getDate()}日`
       },
       fetchData () {
         this.$http.get(`/DataAPI/ProduceReport/productionDayReport.ashx?WorkShopCode=${this.wsCode}&ActType=${this.api}&P_date=${this.date}`).then(res => {
-          var dataList = []
+          let dataList = []
           if (this.api === 'GetNPH') {
             dataList = res.data.nphDateList
           } else if (this.api === 'GetDrate') {
             dataList = res.data.drateDateList
           }
+
           // console.log(Array.from(new Set(dataList.map(item => item.p_date))).sort())
           this.dates = Array.from(new Set(dataList.map(item => item.p_date))).sort()
 
@@ -117,15 +113,14 @@
               data: dataObj[key].map(item => this.api === 'GetNPH' ? item.nph : item.drate)
             })
           }
-          this.myChart.setOption({
-            legend: {
-              data: dataList.map(item => item.name)
-            },
-            xAxis: {
-              data: this.dates.map(date => new Date(date))
-            },
-            series: dataList
-          })
+          this.option.legend.data = dataList.map(item => item.name)
+          this.option.xAxis.data = this.dates.map(date => this.dateFormatter(date))
+          this.option.series = dataList
+          this.myChart.setOption(this.option, true)
+          if (this.interval) {
+            clearTimeout(this.timer)
+            this.timer = setTimeout(this.fetchData, this.interval)
+          }
         })
       }
     }

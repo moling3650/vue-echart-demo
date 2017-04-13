@@ -29,7 +29,7 @@
       <e-table :height="firstBlockHeight" :wsCode="workShopCode" :date="formatDate" :interval="interval"></e-table>
     </div>
     <div v-if="restBlockHeight">
-      <e-line width="50%" :height="restBlockHeight + 'px'" title="车间NPH推移" api="GetNPH" :wsCode="workShopCode" :date="formatDate" :interval="interval"></e-line>
+      <e-line width="50%" :height="restBlockHeight + 'px'" title="车间UPH推移" api="GetNPH" :wsCode="workShopCode" :date="formatDate" :interval="interval"></e-line>
       <e-line width="50%" :height="restBlockHeight + 'px'" title="车间不良推移" api="GetDrate" :wsCode="workShopCode" :date="formatDate" :interval="interval"></e-line>
     </div>
     <div v-if="restBlockHeight">
@@ -68,7 +68,7 @@ export default {
       },
       firstBlockHeight: 0,
       restBlockHeight: 0,
-      interval: 600000
+      interval: 60000
     }
   },
   computed: {

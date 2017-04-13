@@ -63,7 +63,10 @@
           tooltip: {},
           grid: {
             top: 40,
-            right: 80
+            right: 80,
+            bottom: 10,
+            left: 10,
+            containLabel: true
           },
           xAxis: {
             data: []
@@ -106,7 +109,7 @@
             }]
           })
           if (this.interval) {
-            clearInterval(this.timer)
+            clearTimeout(this.timer)
             this.timer = setTimeout(this.fetchData, this.interval)
           }
         })

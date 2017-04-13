@@ -88,7 +88,7 @@
       },
       fetchData () {
         this.$http.get(`/DataAPI/ProduceReport/productionDayReport.ashx?WorkShopCode=${this.wsCode}&ActType=${this.api}&P_date=${this.date}`).then(res => {
-          let dataList = res.data.reasonTypeDateList
+          let dataList = res.data.reasontypeDateList
           this.myChart.setOption({
             legend: {
               data: dataList.map(item => item.reasontype_name)
@@ -98,7 +98,7 @@
             }]
           })
           if (this.interval) {
-            clearInterval(this.timer)
+            clearTimeout(this.timer)
             this.timer = setTimeout(this.fetchData, this.interval)
           }
         })

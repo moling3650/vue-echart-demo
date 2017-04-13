@@ -55,7 +55,9 @@
           grid: {
             top: 0,
             right: 100,
-            left: 130
+            bottom: 10,
+            left: 10,
+            containLabel: true
           },
           xAxis: {
           },
@@ -63,24 +65,24 @@
             data: [],
             axisLabel: {
               rotate: 0
+            },
+            axisTick: {
+              length: 999
             }
           },
           color: ['#bfdbff', '#418ebd', '#44c57e'],
           series: [{
             name: '计划',
             type: 'bar',
-            barMaxWidth: 20,
-            data: []
+            barMaxWidth: 20
           }, {
             name: '投产',
             type: 'bar',
-            barMaxWidth: 20,
-            data: [990, 970]
+            barMaxWidth: 20
           }, {
             name: '完成',
             type: 'bar',
-            barMaxWidth: 20,
-            data: [800, 760]
+            barMaxWidth: 20
           }]
         }
         this.myChart.setOption(option)
@@ -101,7 +103,7 @@
             }]
           })
           if (this.interval) {
-            clearInterval(this.timer)
+            clearTimeout(this.timer)
             this.timer = setTimeout(this.fetchData, this.interval)
           }
         }).catch(err => {
