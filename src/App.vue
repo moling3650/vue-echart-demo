@@ -24,18 +24,18 @@
         </ul>
       </nav>
     </header><!-- /header -->
-    <div v-if="firstBlockHeight">
+    <div class="box" v-if="firstBlockHeight">
       <e-bar width="50%" :height="firstBlockHeight + 'px'" :wsCode="workShopCode" :date="formatDate" :interval="interval"></e-bar>
       <e-table :height="firstBlockHeight" :wsCode="workShopCode" :date="formatDate" :interval="interval"></e-table>
     </div>
-    <div v-if="restBlockHeight">
-      <e-line width="50%" :height="restBlockHeight + 'px'" title="车间UPH推移" api="GetNPH" :wsCode="workShopCode" :date="formatDate" :interval="interval"></e-line>
-      <e-line width="50%" :height="restBlockHeight + 'px'" title="车间不良推移" api="GetDrate" :wsCode="workShopCode" :date="formatDate" :interval="interval"></e-line>
+    <div class="box" v-if="restBlockHeight">
+      <e-line width="50%" :height="restBlockHeight * 1.2 + 'px'" title="车间UPH推移" api="GetNPH" :wsCode="workShopCode" :date="formatDate" :interval="interval"></e-line>
+      <e-line width="50%" :height="restBlockHeight * 1.2 + 'px'" title="车间不良推移" api="GetDrate" :wsCode="workShopCode" :date="formatDate" :interval="interval"></e-line>
     </div>
-    <div v-if="restBlockHeight">
-      <bar width="40%" :height="restBlockHeight + 'px'" title="不良现象分布" api="GetNgCode" :wsCode="workShopCode" :date="formatDate" :interval="interval"></bar>
-      <bar width="40%" :height="restBlockHeight + 'px'" title="不良原因分布" api="GetReasonCode" :wsCode="workShopCode" :date="formatDate" :interval="interval"></bar>
-      <e-pie width="20%" :height="restBlockHeight + 'px'" api="GetReasonCodeType" :wsCode="workShopCode" :date="formatDate" :interval="interval"></e-pie>
+    <div class="box" v-if="restBlockHeight">
+      <bar width="40%" :height="restBlockHeight * 0.8 + 'px'" title="不良现象分布" api="GetNgCode" :wsCode="workShopCode" :date="formatDate" :interval="interval"></bar>
+      <bar width="40%" :height="restBlockHeight * 0.8 + 'px'" title="不良原因分布" api="GetReasonCode" :wsCode="workShopCode" :date="formatDate" :interval="interval"></bar>
+      <e-pie width="20%" :height="restBlockHeight * 0.8 + 'px'" api="GetReasonCodeType" :wsCode="workShopCode" :date="formatDate" :interval="interval"></e-pie>
     </div>
   </div>
 </template>
@@ -118,27 +118,36 @@ export default {
     text-align: center;
   }
 
-  .e-bar {
-    display: inline-block;
-  }
 
   .e-table {
-    display: inline-block;
     width: 50%;
     vertical-align: top;
   }
 
-  .e-line {
+  .e-line,
+  .e-bar,
+  .bar,
+  .e-pie,
+  .e-table {
     display: inline-block;
   }
 
-  .bar {
-    display: inline-block;
+  .box {
+    border: 1px solid #000;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
   }
 
-  .e-pie {
-    display: inline-block;
+  .box:not(:last-child) {
+    border-bottom: none;
   }
+
+  .box > div:not(:last-child) {
+    border-right: 1px solid #000;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
 
 /*   @media only screen and (min-width: 768px) {
     .e-line {

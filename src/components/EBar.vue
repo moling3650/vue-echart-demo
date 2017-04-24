@@ -92,7 +92,7 @@
           let dataList = res.data.map(item => item.dataP)
           this.myChart.setOption({
             yAxis: {
-              data: dataList.map(item => item.P_name)
+              data: dataList.map(item => `${item.Order_no}\n${item.P_name}`)
             },
             series: [{
               data: dataList.map(item => item.PlanQty)
