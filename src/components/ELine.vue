@@ -39,7 +39,7 @@
       return {
         myChart: null,
         timer: null,
-        dates: [],
+        dataList: [],
         option: {
           title: {
             text: this.title,
@@ -66,6 +66,11 @@
         }
       }
     },
+    computed: {
+      dates () {
+        return Array.from(new Set(this.dataList.map(item => item.p_date))).sort()
+      }
+    },
     mounted () {
       this.init()
     },
@@ -85,32 +90,36 @@
         let date = new Date(value)
         return `${date.getMonth() + 1}月${date.getDate()}日`
       },
+      listFormatter (list) {
+        for (let i = 1; i < list.length; i++) {
+          if (list[i] === undefined) {
+            list[i] = list[i - 1]
+          }
+        }
+        return list
+      },
       fetchData () {
         this.$http.get(`/DataAPI/ProduceReport/productionDayReport.ashx?WorkShopCode=${this.wsCode}&ActType=${this.api}&P_date=${this.date}`).then(res => {
-          let dataList = []
           if (this.api === 'GetNPH') {
-            dataList = res.data.nphDateList
+            this.dataList = res.data.nphDateList
           } else if (this.api === 'GetDrate') {
-            dataList = res.data.drateDateList
+            this.dataList = res.data.drateDateList
           }
 
-          // console.log(Array.from(new Set(dataList.map(item => item.p_date))).sort())
-          this.dates = Array.from(new Set(dataList.map(item => item.p_date))).sort()
-
           let dataObj = {}
-          dataList.map(item => {
+          this.dataList.map(item => {
             if (!dataObj[item.p_name]) {
               dataObj[item.p_name] = []
             }
             let idx = this.dates.findIndex(date => date === item.p_date)
-            dataObj[item.p_name][idx] = item
+            dataObj[item.p_name][idx] = (this.api === 'GetNPH') ? item.nph : item.drate
           })
-          dataList = []
+          let dataList = []
           for (let key in dataObj) {
             dataList.push({
               name: key,
               type: 'line',
-              data: dataObj[key].map(item => this.api === 'GetNPH' ? item.nph : item.drate)
+              data: this.listFormatter(dataObj[key])
             })
           }
           this.option.legend.data = dataList.map(item => item.name)
